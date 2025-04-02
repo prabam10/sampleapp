@@ -61,6 +61,20 @@ registerRoute(
   })
 );
 
+// Example of runtime caching route with NetworkFirst strategy
+registerRoute(
+  ({ url }) => url.origin === 'jsonplaceholder.typicode.com' && url.pathname.startsWith('/users'),
+  new NetworkFirst({
+    cacheName: 'users-cache',
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 50,
+        maxAgeSeconds: 24 * 60 * 60, // 1 day
+      }),
+    ],
+  })
+);
+
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener('message', (event) => {
