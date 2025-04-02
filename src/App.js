@@ -21,7 +21,7 @@ function ChildApp() {
   }, []);
 
   return (
-    <BrowserRouter basename="/ultra">
+    <BrowserRouter basename="/">
       <div className="App">
         <header className="App-header">
           <h1>Child App (ultra-next.bbpd.io)</h1>
