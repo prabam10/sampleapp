@@ -63,7 +63,15 @@ registerRoute(
 
 // Example of runtime caching route with NetworkFirst strategy
 registerRoute(
-  ({ url }) => url.origin === 'jsonplaceholder.typicode.com' && url.pathname.startsWith('/users'),
+  ({ url }) => {
+    const isMatching = url.origin === 'https://jsonplaceholder.typicode.com' && url.pathname.startsWith('/users');
+    if (isMatching) {
+      console.log('Fetching from users-cache:', url.href);
+    } else {
+      console.log('Not caching:', url.href);
+    }
+    return isMatching;
+  },
   new NetworkFirst({
     cacheName: 'users-cache',
     plugins: [
