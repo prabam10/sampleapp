@@ -24,7 +24,7 @@ function ChildApp() {
     <BrowserRouter basename="/">
       <div className="App">
         <header className="App-header">
-          <h1>Child App (ultra-next.bbpd.io)</h1>
+          <h1>Child App (ultra)</h1>
           {loading ? (
             <p>Loading users...</p>
           ) : (
