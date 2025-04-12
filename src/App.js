@@ -32,6 +32,9 @@ function ChildApp() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Dynamically determine the basename based on the current URL
+  const basename = window.location.pathname.startsWith('/ultra') ? '/ultra' : '/';
+
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
@@ -46,7 +49,7 @@ function ChildApp() {
   }, []);
 
   return (
-    <BrowserRouter basename="/">
+    <BrowserRouter basename={basename}>
       <div className="App">
         <header className="App-header">
           <h1>Child App (ultra-next.bbpd.io)</h1>
