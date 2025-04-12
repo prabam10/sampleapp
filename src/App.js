@@ -17,7 +17,7 @@ function UserList({ users, loading }) {
         {users.map((user) => (
           <li 
             key={user.id} 
-            onClick={() => navigate(`/ultra/${user.id}`)} 
+            onClick={() => navigate(`/${user.id}`)} 
             style={{ cursor: "pointer" }}
           >
             {user.name} - {user.email}
