@@ -52,11 +52,11 @@ function ChildApp() {
           <h1>Child App (ultra-next.bbpd.io)</h1>
           <Routes>
             <Route
-              path="/ultra"
+              path="/"
               element={<UserList users={users} loading={loading} />}
             />
             <Route
-              path="/ultra/:id"
+              path="/:id"
               element={<UserDetails />}
             />
           </Routes>
