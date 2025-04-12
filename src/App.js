@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
-import UserDetails from "./Detail";
+import UserDetails from "./Details";
 
 function UserList({ users, loading }) {
   const navigate = useNavigate();
