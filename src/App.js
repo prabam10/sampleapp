@@ -33,7 +33,10 @@ function ChildApp() {
   const [loading, setLoading] = useState(true);
 
   // Dynamically determine the basename based on the current URL
-  const basename = window.location.pathname.startsWith('/ultra') ? '/ultra' : '/';
+  const basename = window.location.pathname.split('/')[1]
+  ? `/${window.location.pathname.split('/')[1]}`
+  : '/';
+  
   console.log("ChildApp Rendered", basename);
 
   useEffect(() => {
