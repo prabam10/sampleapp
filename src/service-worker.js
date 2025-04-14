@@ -63,17 +63,9 @@ registerRoute(
 
 // Example of runtime caching route with NetworkFirst strategy
 registerRoute(
-  ({ url }) => {
-    const isMatching = url.origin === 'https://jsonplaceholder.typicode.com' && url.pathname.startsWith('/users');
-    if (isMatching) {
-      console.log('Fetching from users-cache:', url.href);
-    } else {
-      console.log('Not caching:', url.href);
-    }
-    return isMatching;
-  },
+  ({ url }) => url.origin === 'https://jsonplaceholder.typicode.com' && url.pathname.startsWith('/users'),
   new NetworkFirst({
-    cacheName: 'users-cache',
+    cacheName: 'users-cache-app2',
     plugins: [
       new ExpirationPlugin({
         maxEntries: 50,
@@ -82,6 +74,29 @@ registerRoute(
     ],
   })
 );
+
+// Add detailed logging for fetch events
+self.addEventListener('fetch', (event) => {
+  console.log('Fetch event for:', event.request.url);
+  if (event.request.url.includes("jsonplaceholder.typicode.com")) {
+    event.respondWith(
+      caches.match(event.request).then((response) => {
+        if (response) {
+          console.log('Serving from cache:', event.request.url);
+          return response;
+        }
+        console.log('Fetching from network:', event.request.url);
+        return fetch(event.request).then((networkResponse) => {
+          return caches.open('api-cache').then((cache) => {
+            console.log('Caching new response:', event.request.url);
+            cache.put(event.request, networkResponse.clone());
+            return networkResponse;
+          });
+        });
+      })
+    );
+  }
+});
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
