@@ -34,6 +34,7 @@ function ChildApp() {
 
   // Dynamically determine the basename based on the current URL
   const basename = window.location.pathname.startsWith('/ultra') ? '/ultra' : '/';
+  console.log("ChildApp Rendered", basename);
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
